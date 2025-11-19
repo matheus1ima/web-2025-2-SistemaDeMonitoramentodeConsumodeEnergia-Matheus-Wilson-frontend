@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard - Monitoramento de Energia</title>
+  <link href="./css/output.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 min-h-screen">
+  <header class="bg-emerald-700 text-white py-4 shadow">
+    <div class="container mx-auto flex justify-between items-center px-6">
+      <h1 class="text-2xl font-semibold">Energia+</h1>
+      <button id="logout" class="bg-red-500 px-3 py-1 rounded hover:bg-red-600">Sair</button>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-6 py-8">
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-gray-600">Consumo de Hoje</h3>
+        <p id="totalHoje" class="text-3xl font-semibold text-green-600 mt-2">0</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-gray-600">Custo de Hoje</h3>
+        <p id="custoHoje" class="text-3xl font-semibold text-green-600 mt-2">R$ 0,00</p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow text-center">
+        <h3 class="text-gray-600">Dias Monitorados</h3>
+        <p id="totalDias" class="text-3xl font-semibold text-green-600 mt-2">0</p>
+      </div>
+      <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow mb-6">
+  <div>
+    <h2 class="text-lg font-semibold text-green-700">Meta Mensal:</h2>
+    <p class="text-gray-700">Meta atual: <span id="valorMeta">150</span> kWh</p>
+    <p id="alertaMeta" class="text-green-600 font-semibold mt-2">✅ 0% da meta usada</p>
+  </div>
+  <button id="btnDefinirMeta" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg">
+    Definir Meta
+  </button>
+</div>
+
+
+    </section>
+
+    <!-- Formulário -->
+    <section class="bg-white p-6 rounded-xl shadow mb-8">
+      <h2 class="text-xl font-semibold mb-4 text-green-700">Adicionar Novo Consumo</h2>
+      <form id="formConsumo" class="flex flex-wrap gap-3">
+        <input type="date" id="data" class="border p-2 rounded flex-1" required />
+        <input type="number" id="kwh" step="0.01" placeholder="kWh" class="border p-2 rounded flex-1" required />
+        <input type="number" id="custo" step="0.01" placeholder="Custo (R$)" class="border p-2 rounded flex-1" required />
+        <input type="text" id="observacao" placeholder="Observação" class="border p-2 rounded flex-1" />
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Adicionar</button>
+      </form>
+    </section>
+
+    <!-- Tabela -->
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-4 text-green-700">Histórico de Consumo</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-left">
+          <thead class="bg-green-600 text-white">
+            <tr>
+              <th class="p-3">Data</th>
+              <th class="p-3">kWh</th>
+              <th class="p-3">Custo (R$)</th>
+              <th class="p-3">Observação</th>
+            </tr>
+          </thead>
+          <tbody id="tabelaConsumo" class="divide-y divide-gray-200 bg-white"></tbody>
+        </table>
+      </div>
+      <div class="flex gap-3 mt-4">
+        <button id="btnCSV" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Exportar CSV</button>
+        <button id="btnPDF" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Exportar PDF</button>
+      </div>
+
+    </section>
+
+  </main>
+    <section class="bg-white p-6 rounded-xl shadow mt-8">
+      <h2 class="text-xl font-semibold mb-4 text-green-700">Gráfico de Consumo</h2>
+      <canvas id="graficoConsumo" height="100"></canvas>
+    </section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
