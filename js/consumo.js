@@ -36,7 +36,8 @@ export async function carregarConsumo() {
       totalDias.textContent = dados.length;
     }
     window.editarRegistro = function(id) {
-      const registro = dadosGlobais.find(r => r.id === id);
+      id = Number(id)
+      const registro = dadosGlobais.find((r) => r.id === id);
       if (!registro) return alert("Registro não encontrado!");
 
       document.getElementById("data").value = registro.data;
@@ -51,9 +52,20 @@ export async function carregarConsumo() {
     window.excluirRegistro = async function(id) {
       if (!confirm("Deseja remover este registro?")) return;
 
-      await fetch(`http://127.0.0.1:8000/consumo/${id}`, {
+      const token = localStorage.getItem("token")
+
+      const res = await fetch(`http://127.0.0.1:8000/consumo/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
+      if(!res.ok){
+        alert("Erro ao excluir")
+        return
+
+      }
 
       alert("Registro excluído!");
       carregarConsumo();
