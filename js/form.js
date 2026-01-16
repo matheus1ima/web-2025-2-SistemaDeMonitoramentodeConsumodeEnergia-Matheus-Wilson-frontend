@@ -17,10 +17,10 @@ export function inicializarFormulario() {
 
     if (window.idEmEdicao) {
       const id = window.idEmEdicao;
-
+      
       await fetch(`${API_URL}/consumo/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json"},
         body: JSON.stringify({ data, kwh, custo, observacao }),
       });
 
@@ -32,9 +32,14 @@ export function inicializarFormulario() {
     }
 
     try {
+      const token = localStorage.getItem("token");
+
       await fetch(`${API_URL}/consumo/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
         body: JSON.stringify({ data, kwh, custo, observacao }),
       });
 
